@@ -20,5 +20,9 @@
 
         <!-- Mapping -->
         <mapping class="com.hibernate.crud.model.Student"/>
+        <mapping class="com.hibernate.crud.model.Department"/>
+        <mapping class="com.hibernate.crud.model.Passport"/>
+        <mapping class="com.hibernate.crud.model.Courses"/>
+        
     </session-factory>
 </hibernate-configuration>

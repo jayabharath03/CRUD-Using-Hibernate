@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.hibernate.crud.model.Department;
 import com.hibernate.crud.model.Student;
 import com.hibernate.crud.util.HibernateUtil;
 
@@ -17,7 +18,7 @@ public class StudentDAO {
 			transaction = session.beginTransaction();
 			id = (int) session.save(student);
 			transaction.commit();
-			System.out.println("Student details saved Successfully"+id);
+			System.out.println("Student details saved Successfully "+id);
 		} catch (Exception e) {
 			if (transaction != null)
 				transaction.rollback();
@@ -25,6 +26,20 @@ public class StudentDAO {
 
 		}
 	}
+	public void saveDepartment(Department dept) {
+		Transaction transaction = null;
+		int id=0;
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			transaction = session.beginTransaction();
+			id =(int)session.save(dept);
+			System.out.println("Department added succesfully "+id);
+			
+		}catch(Exception e) {
+			if(transaction !=null) 
+				transaction.rollback();
+			e.printStackTrace();
+		}
+		}
 
 	public void updateStudent(Student student) {
 		Transaction transaction = null;

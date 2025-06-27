@@ -1,39 +1,52 @@
 package com.hibernate.crud;
 
-import java.util.List;
+import java.util.Arrays;
 
 import com.hibernate.crud.dao.StudentDAO;
+import com.hibernate.crud.model.Courses;
+import com.hibernate.crud.model.Department;
+import com.hibernate.crud.model.Passport;
 import com.hibernate.crud.model.Student;
 
 public class MainApp 
 {
     public static void main( String[] args )
     {
+    	
+    	Department dept2 = new Department(2,"ECE");
+    	
+    	Passport p1 = new Passport();
+    	p1.setId(2);
+    	p1.setPassportNumber("ksj352");
+    	
+    	Courses c1 = new Courses();
+    	c1.setId(101);
+    	c1.setCourseName("Java");
+    	
+    	Courses c2 = new Courses();
+    	c2.setId(102);
+    	c2.setCourseName("Python");
+    	
+    	
     	StudentDAO dao = new StudentDAO();
     	
-    	Student s1 = new Student("ram","kumar","ram@gmail.com");
-    	Student s2 = new Student("mani", "dhar", "mani@gmail.com");
-    	Student s3 = new Student("jaya","harish","harish@gmail.com");
-    	Student s4 = new Student("rudhra","moorthy","rudhra@gmail.com");
+    	
+    	Student s1 = new Student("gopal","kumar","gopal@gmail.com");
+    	s1.setCourses(Arrays.asList(c1,c2));
+    	s1.setDepartment(dept2);
+
+    	s1.setPassport(p1);
+    	p1.setStudent(s1);
+    	c1.setStudent(Arrays.asList(s1));
+    	c2.setStudent(Arrays.asList(s1));
+    	
+    	
+    	dept2.setStud(Arrays.asList(s1));
     	
     	dao.saveStudent(s1);
-
-    	Student fetched = dao.getStudent(1);
-    	System.out.println("Fetched: "+fetched);
+    
     	
-    	Student update = dao.getStudent(23);
-    	update.setEmail("mani@gmail.com");
-    	dao.updateStudent(update);
     	
-    	dao.deleteStudent(7);
     	
-    	List<Student> allStudents = dao.getAllStudents();
-    	if(allStudents != null && !allStudents.isEmpty()) {
-    		for(Student s: allStudents) {
-    			System.out.println(s);
-    		}
-    	}else {
-    		System.out.println("no student records found");
-    	}
     }
 }
